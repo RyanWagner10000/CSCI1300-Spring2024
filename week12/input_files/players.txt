@@ -1,3 +1,0 @@
-name|HP|stamina|defense|gold|condition
-Odysseus|100|50|H
-Achilles|80|100|H

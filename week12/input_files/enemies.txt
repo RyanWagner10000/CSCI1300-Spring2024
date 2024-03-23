@@ -1,3 +1,0 @@
-name|HP|stamina|defense|gold|condition
-Sirens|100.3355|50|H
-Scylla|200|50|H

@@ -1,2 +1,0 @@
-Mount Everest,Asia,65,8848
-Kangchenjunga,Asia,East,55,8586,5
