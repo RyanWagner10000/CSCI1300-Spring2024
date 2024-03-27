@@ -17,7 +17,7 @@ int main(){
     // ask user for input
     // test file read in
     string filename = "characters.txt";
-    m_game.loadEntities(filename);
+    m_game.loadEntity(filename);
 
     // ask user for their choice
     string userChoice;
@@ -41,8 +41,8 @@ int main(){
     
     // manually providing Equipment to each one
     // NOTE: your setEquipment should have more parameters than mine does
-    player.setEquipment("Bow of Odysseus", 'W', 10.0);
-    enemy.setEquipment("Lotus Staff", 'E', 10.0);
+    player.setEquipment("Bow of Odysseus", "Increases damage by 10", 'D', 10, 'W', 100);
+    enemy.setEquipment("Lotus Staff", "Increases damage by 10", 'D', 10, 'E', 80);
 
     // calling my combat function to test - output is in the GitHub under Combat
     m_game.combat(player, enemy);
