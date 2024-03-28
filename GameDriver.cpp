@@ -10,6 +10,11 @@ int main(){
     // print menu
     m_game.introMenu();
 
+    // Load heros and enemies
+    m_game.loadEntity("data//entity.txt");
+    cout << "Players = " << m_game.getPlayers().size() << endl;
+    cout << "Enemies = " << m_game.getEnemies().size() << endl;
+
     // ask user for input
     // test file read in
     // string filename = "characters.txt";
