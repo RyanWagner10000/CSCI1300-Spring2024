@@ -7,7 +7,7 @@ Entity::Entity(string Name, float hp, float stamina, float defense, char conditi
 }
 
 string Entity::getName() {
-    
+    return "Hello";
 }
 
 void Entity::swap(int userChoice) {
@@ -22,6 +22,6 @@ void Entity::usePotion(int userChoice) {
 
 }
 
-void Entity::updateEquipment(int equipIndex, Equipment weapon) {
+// void Entity::updateEquipment(int equipIndex, Equipment weapon) {
     
-}
+// }

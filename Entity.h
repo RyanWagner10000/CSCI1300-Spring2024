@@ -4,8 +4,8 @@
 #include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
-#include <Potion.h>
-#include <Equipment.h>
+// #include <Potion.h>
+// #include <Equipment.h>
 #include <list>
 
 using namespace std;
@@ -18,9 +18,9 @@ class Entity {
         double _defense;
         char _condition;
         bool _advantage;
-        Potion _potions;
-        Equipment _equipped;
-        Equipment _inventory;
+        // Potion _potions;
+        // Equipment _equipped;
+        // Equipment _inventory;
         list<int> _items;
         float _calamity;
     public:
@@ -42,7 +42,7 @@ class Entity {
         void usePotion(int userChoice);
         
         // uses given weapon to update weapon at a particular index (equipIndex)
-        void updateEquipment(int equipIndex, Equipment weapon);
+        // void updateEquipment(int equipIndex, Equipment weapon);
         
         // setter for setting equipment
         void setEquipment(string name, string description, char type, int effect_value, char element, int price);
