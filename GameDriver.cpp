@@ -1,7 +1,10 @@
 #include "Game.h"
 #include <ctype.h>
+#include <cstring>
 
 using namespace std;
+
+// g++ -Wall -Wpedantic -std=c++17 GameDriver.cpp Game.cpp Entity.cpp -o playGame && ./playGame
 
 int main(){
     // initialize
@@ -12,25 +15,32 @@ int main(){
 
     // Load heros and enemies
     m_game.loadEntity("data//entity.txt");
-    cout << "Players = " << m_game.getPlayers().size() << endl;
-    cout << "Enemies = " << m_game.getEnemies().size() << endl;
-
-    // ask user for input
-    // test file read in
-    // string filename = "characters.txt";
-    // m_game.loadEntity(filename);
-
-    // ask user for their choice
-    // string userChoice;
-    // cout << "Which character would you like to choose? Enter a number." << endl;
-    // cout << "(1) Odysseus (2) Argos (3) Circe (4) Achilles" << endl;
-    // cin >> userChoice;
+    cout << "You have " << m_game.getPlayers().size() << " Players to choose from." << endl;
+    cout << "Which character would you like to play as?" << endl;
     
-    // mild user input validation check - arguably could/should be more thorough
-    // if (isdigit(userChoice[0])){
-    //     Entity player1 = m_game.getPlayer(stoi(userChoice) - 1);
-    //     cout << player1.getName() << " chosen successfully! " << endl;
-    // }
+    vector<Entity> players = m_game.getPlayers();
+    int idx = 1;
+    int user_input = -1;
+
+    for (auto& it : players) {
+        cout << "(" << idx << ") " << it.getName() << " ";
+        idx++;
+        if (idx > (int) players.size()) {
+            cout << endl << "Player choice: ";
+            cin.clear();
+            cin >> user_input;
+        }
+    }
+    if (user_input > 0 && user_input <= (int) m_game.getPlayers().size()) {
+        m_game.setPlayer(players.at(user_input-1), 1);
+        cout << m_game.getPlayer1().getName() << " chosen sucessfully!" << endl;
+    } else {
+        cout << "Incorrect input type. Please rerun." << endl;
+    }
+
+    m_game.loadPotionsEquipment("data//items.txt");
+    cout << "Num potions = " << m_game.getPotions().size() << endl;
+    cout << "Num equips = " << m_game.getEquipment().size() << endl;
 
     // // Combat testing
     // // let's say I haven't figured out how to connect things to the game's list of entities yet, but I want to get my combat function out of the way

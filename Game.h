@@ -5,30 +5,38 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "Entity.h"
-#include <list>
+#include <list> 
 #include <fstream>
 #include <string>
 #include "Potion.h"
 #include "Equipment.h"
 #include <cstring>
+#include <vector>
 
 using namespace std;
 
 class Game
 {
 private:
-    list<Entity> _players;
-    list<Entity> _enemies;
-    list<Potion> _allPotions;
-    list<Equipment> _allEquip;
+    vector<Entity> _players;
+    vector<Entity> _enemies;
+    vector<Potion> _allPotions;
+    vector<Equipment> _allEquip;
+    Entity _player1;
+    Entity _player2;
 
 public:
     Game();
     void introMenu();
     void loadEntity(string filename);
-    // Entity getPlayer(int entity_num);
-    list<Entity> getPlayers();
-    list<Entity> getEnemies();
+    vector<Entity> getPlayers();
+    vector<Entity> getEnemies();
+    vector<Potion> getPotions();
+    vector<Equipment> getEquipment();
+    void setPlayer(Entity player, int player_num);
+    Entity getPlayer1();
+    Entity getPlayer2();
+    void loadPotionsEquipment(string filename);
     int combat(Entity player, Entity enemy);
     // void shop(Potion all_potions, Equipment all_equip);
     void playGame();

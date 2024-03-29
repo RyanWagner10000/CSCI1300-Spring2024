@@ -12,12 +12,39 @@ void Game::introMenu()
     return;
 }
 
+// Function to split a string into a vector of substrings based on a delimeter character
+vector<string> splitString(string str, char delimeter) 
+{
+    string temp = "";
+    vector<string> substrings;
+    int count = 0;
+    if (str == "") 
+    {
+        return substrings;
+    }
+    for (size_t i = 0; i < str.length(); i++) 
+    {
+        if (str[i] != delimeter) 
+        {
+            temp += str[i];
+        } 
+        else 
+        {
+            substrings.push_back(temp);
+            count++;
+            temp = "";
+        }
+    }
+    substrings.push_back(temp);
+    return substrings;
+}
+
 void Game::loadEntity(string filename)
 {
     ifstream file_in(filename);
     if (file_in.fail())
     {
-        cout << "Could not open entity.txt file." << endl;
+        cout << "Could not open " << filename << " file." << endl;
         return;
     }
     else if (file_in.is_open())
@@ -48,10 +75,10 @@ void Game::loadEntity(string filename)
                 bool _advantage;
                 char _elemental_weakness;
                 int _gold;
-                list<int> _items;
-                list<Potion> _potions;
-                list<Equipment> _equipped;
-                list<Equipment> _inventory;
+                vector<int> _items;
+                vector<Potion> _potions;
+                vector<Equipment> _equipped;
+                vector<Equipment> _inventory;
                 string _ultimate;
 
                 if (line.length() > 0)
@@ -139,17 +166,15 @@ void Game::loadEntity(string filename)
                         default:
                             break;
                         }
-                        // Entity new_entity(_name, _HP, _stamina, _defense, _condition, _advantage, _elemental_weakness, _gold, _items);
                         idx++;
                     }
                     _ultimate = line;
                     if (_type == 'P') {
-                        Entity new_entity = Entity();
-                        new_entity.makeEntity(_name, _HP, _stamina, _defense, _condition, _advantage, _elemental_weakness, _gold, _items);
+                        Entity new_entity = Entity(_name, _HP, _stamina, _defense, _condition, _advantage, _elemental_weakness, _gold, _items);
                         _players.push_back(new_entity);
                     } else {
-                        // Entity new_entity = new_entity.makeEntity(_name, _HP, _stamina, _defense, _condition, _advantage, _elemental_weakness, _gold, _items);
-                        // _enemies.push_back(new_entity);
+                        Entity new_entity = Entity(_name, _HP, _stamina, _defense, _condition, _advantage, _elemental_weakness, _gold, _items);
+                        _enemies.push_back(new_entity);
                     }
                 }
             }
@@ -158,17 +183,99 @@ void Game::loadEntity(string filename)
     file_in.close();
 }
 
-list<Entity> Game::getPlayers(){
+vector<Entity> Game::getPlayers()
+{
     return _players;
 }
 
-list<Entity> Game::getEnemies(){
+vector<Entity> Game::getEnemies()
+{
     return _enemies;
 }
 
-// Entity Game::getPlayer(int entity_num)
-// {
-// }
+void Game::setPlayer(Entity player, int player_num)
+{
+    if (player_num == 1) {
+        _player1 = player;
+    } else if (player_num == 2)
+    {
+        _player2 = player;
+    }
+    return;
+}
+
+Entity Game::getPlayer1() {
+    return _player1;
+}
+
+Entity Game::getPlayer2() {
+    return _player2;
+}
+
+void Game::loadPotionsEquipment(string filename) {
+    ifstream file_in(filename);
+    if (file_in.fail())
+    {
+        cout << "Could not open " << filename << " file." << endl;
+        return;
+    }
+    else if (file_in.is_open())
+    {
+        string line = "";
+        int idx = 0;
+        while (!file_in.eof())
+        {
+            if (idx == 0)
+            {
+                idx++;
+                getline(file_in, line);
+                continue;
+            }
+            else
+            {
+                getline(file_in, line);
+                vector<string> substrings = splitString(line, '|');
+                if (substrings.size() == 0) {
+                    continue;
+                } else if (substrings[4] == "None") { // This means is a potion
+                    Potion new_potion;
+                    new_potion.name = substrings[0];
+                    new_potion.description = substrings[1];
+                    new_potion.type = substrings[2].at(0);
+                    new_potion.effect_value = stod(substrings[3]);
+                    new_potion.element = substrings[4].at(0);
+                    new_potion.price = stod(substrings[5]);
+                    new_potion.quantity = 1;
+                    _allPotions.push_back(new_potion);
+                } else { // Therefore this is a potion
+                    Equipment new_equipment;
+                    new_equipment.name = substrings[0];
+                    new_equipment.description = substrings[1];
+                    new_equipment.type = substrings[2].at(0);
+                    if (new_equipment.type == 'D') {
+                        new_equipment.damage = stod(substrings[3]);
+                        new_equipment.defense = 0;
+                    } else {
+                        new_equipment.damage = 0;
+                        new_equipment.defense = stod(substrings[3]);
+                    }
+                    new_equipment.element = substrings[4].at(0);
+                    new_equipment.price = stod(substrings[5]);
+                    _allEquip.push_back(new_equipment);
+                }
+            }
+        }
+    }
+    return;
+}
+
+vector<Potion> Game::getPotions() {
+    return _allPotions;
+}
+
+vector<Equipment> Game::getEquipment() {
+    return _allEquip;
+}
 
 int Game::combat(Entity player, Entity enemy)
 {
