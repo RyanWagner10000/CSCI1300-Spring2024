@@ -15,32 +15,49 @@ int main(){
 
     // Load heros and enemies
     m_game.loadEntity("data//entity.txt");
-    cout << "You have " << m_game.getPlayers().size() << " Players to choose from." << endl;
-    cout << "Which character would you like to play as?" << endl;
     
-    vector<Entity> players = m_game.getPlayers();
-    int idx = 1;
-    int user_input = -1;
+    // cout << "You have " << m_game.getPlayers().size() << " Players to choose from." << endl;
+    // cout << "Which character would you like to play as?" << endl;
+    
+    // vector<Entity> players = m_game.getPlayers();
+    // int idx = 1;
+    // int user_input = -1;
 
-    for (auto& it : players) {
-        cout << "(" << idx << ") " << it.getName() << " ";
-        idx++;
-        if (idx > (int) players.size()) {
-            cout << endl << "Player choice: ";
-            cin.clear();
-            cin >> user_input;
-        }
-    }
-    if (user_input > 0 && user_input <= (int) m_game.getPlayers().size()) {
-        m_game.setPlayer(players.at(user_input-1), 1);
-        cout << m_game.getPlayer1().getName() << " chosen sucessfully!" << endl;
-    } else {
-        cout << "Incorrect input type. Please rerun." << endl;
-    }
+    // for (auto& it : players) {
+    //     cout << "(" << idx << ") " << it.getName() << " ";
+    //     idx++;
+    //     if (idx > (int) players.size()) {
+    //         cout << endl << "Player choice: ";
+    //         cin.clear();
+    //         cin >> user_input;
+    //     }
+    // }
+    // if (user_input > 0 && user_input <= (int) m_game.getPlayers().size()) {
+    //     m_game.setPlayer(players.at(user_input-1), 1);
+    //     cout << m_game.getPlayer1().getName() << " chosen sucessfully!" << endl;
+    // } else {
+    //     cout << "Incorrect input type. Please rerun." << endl;
+    //     return -1;
+    // }
 
-    m_game.loadPotionsEquipment("data//items.txt");
-    cout << "Num potions = " << m_game.getPotions().size() << endl;
-    cout << "Num equips = " << m_game.getEquipment().size() << endl;
+    // // Set player 2 to random other character
+    // int player2_choice = 0;
+    // srand(time(NULL));
+    // while (true) {
+    //     player2_choice = (rand() % m_game.getPlayers().size()) + 1;
+    //     if (player2_choice != user_input) {
+    //         m_game.setPlayer(players.at(player2_choice-1), 2);
+    //         cout << "\nRandom Player 2 choice is " << m_game.getPlayer2().getName() << endl;
+    //         break;
+    //     }
+    // }
+
+    // m_game.loadPotionsEquipment("data//items.txt");
+    // cout << "Num potions = " << m_game.getPotions().size() << endl;
+    // cout << "Num equips = " << m_game.getEquipment().size() << endl;
+
+    // Visit shop before game starts
+
 
     // // Combat testing
     // // let's say I haven't figured out how to connect things to the game's list of entities yet, but I want to get my combat function out of the way

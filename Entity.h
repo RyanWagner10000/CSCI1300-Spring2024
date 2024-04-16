@@ -20,12 +20,12 @@ private:
     double _defense;
     char _condition;
     bool _advantage;
-    vector<Potion> _potions;
-    vector<Equipment> _equipped;
-    vector<Equipment> _inventory;
+    Potion _potions[100];
+    Equipment _equipped[100];
+    Equipment _inventory[100];
     char _elemental_weakness;
     int _gold;
-    vector<int> _items;
+    int _items[100];
     string _ultimate;
     float _calamity;
 
@@ -34,8 +34,8 @@ public:
     Entity();
 
     // Parametrized Constructor
-    Entity(string Name, double hp, double stamina, double defense, char condition, bool advantage, char elemental_weakness, int gold, vector<int> starting_items);
-    
+    Entity(string initVariables[]);
+
     // get name of provided entity
     string getName();
 

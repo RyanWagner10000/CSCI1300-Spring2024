@@ -1,3 +1,3 @@
 #include "Potion.h"
 
-struct Potion potion;
+// struct Potion potion;

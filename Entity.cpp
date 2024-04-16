@@ -10,13 +10,57 @@ Entity::Entity()
     _advantage = false;
     _elemental_weakness = 'a';
     _gold = 0;
-    vector<int> temp = {};
-    _items = temp;
+    // _items[255] = {0};
 }
 
-Entity::Entity(string Name, double hp, double stamina, double defense, char condition, bool advantage, char elemental_weakness, int gold, vector<int> starting_items)
-    : _name(Name), _HP(hp), _stamina(stamina), _defense(defense), _condition(condition), _advantage(advantage), _elemental_weakness(elemental_weakness), _gold(gold), _items(starting_items)
+Entity::Entity(string initVariables[])
 {
+    _name = initVariables[0];
+    _type = initVariables[1][0];
+    _HP = stod(initVariables[2]);
+    _stamina = stod(initVariables[3]);
+    _defense = stod(initVariables[4]);
+    _condition = initVariables[5][0];
+    if (initVariables[6][0] == 'T' || initVariables[6][0] == 't') {
+        _advantage = true;
+    } else {
+        _advantage = false;
+    }
+    _elemental_weakness = initVariables[7][0];
+    _gold = stoi(initVariables[8]);
+
+    size_t pos = 0;
+    string token;
+    string delimiter = ", ";
+    pos = initVariables[9].find(delimiter);
+    token = initVariables[9].substr(0, pos);
+    Potion newPotion;
+    newPotion.name = token;
+    
+    initVariables[9].erase(0, pos + delimiter.length());
+    
+    pos = initVariables[9].find(delimiter);
+    token = initVariables[9].substr(0, pos);
+    Equipment newEquipment;
+    newEquipment.name = token;
+
+    _potions[0] = newPotion;
+    _inventory[0] = newEquipment;
+
+    pos = 0;
+    delimiter = ",";
+    pos = initVariables[10].find(delimiter);
+    token = initVariables[10].substr(0, pos);
+    _items[0] = stoi(token);
+    
+    initVariables[9].erase(0, pos + delimiter.length());
+    
+    pos = initVariables[10].find(delimiter);
+    token = initVariables[10].substr(0, pos);
+    _items[1] = stoi(token);
+
+    _ultimate = initVariables[12];
+    _calamity = 0;
 }
 
 string Entity::getName() {
